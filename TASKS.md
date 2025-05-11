@@ -12,10 +12,10 @@
 - [x] DB接続ユーティリティの作成
 - [x] サンプルテーブル（tasks, projects等）の型定義
 - [x] サンプルクエリ（select, insert, update, leftJoin, hasMany等）の実装
+- [x] マイグレーションツール（dbmate等）の導入・セットアップ
 
 ## 🟢 進行中
 
-- [ ] マイグレーションツール（dbmate等）の導入・セットアップ
 - [ ] README/ガイドの更新
 
 ## ⏳ 今後の予定
