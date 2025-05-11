@@ -17,11 +17,16 @@
 
 ## 🟢 進行中
 
-- [ ] README/ガイドの更新
+- [ ] TASK-001: 型共有・Hono RPC導入（[詳細](../tasks/TASK-001-hono-rpc.md)）
+    - [ ] 型共有用パッケージ（packages/types）新設
+    - [ ] 共通型（Task, Project, APIレスポンス型など）の定義
+    - [ ] Hono RPCの依存追加・セットアップ
+    - [ ] サンプルRPCエンドポイントの実装
+    - [ ] 型共有・RPCの動作確認
+    - [ ] ドキュメント/ガイドの更新
 
 ## ⏳ 今後の予定
 
-- [ ] 型共有・Hono RPC導入
 - [ ] TanStack QueryによるAPI通信
 - [ ] UI/UX拡張（shadcn/ui, Toaster, Dialog等）
 - [ ] Cloudflare D1マイグレーション・本番デプロイ 
