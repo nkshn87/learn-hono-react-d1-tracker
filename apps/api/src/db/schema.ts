@@ -1,13 +1,13 @@
 // Kysely用DBスキーマ型定義
 
 export interface Task {
-	id: number;
+	id?: number;
 	title: string;
 	description: string | null;
 	status: "todo" | "in_progress" | "done";
 	project_id: number | null;
-	created_at: Date;
-	updated_at: Date;
+	created_at?: Date;
+	updated_at?: Date;
 }
 
 export interface Project {
