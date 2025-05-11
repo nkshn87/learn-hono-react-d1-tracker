@@ -6,10 +6,17 @@
 - [x] Vite + React + Tailwind + shadcn/ui + Biome構築
 - [x] Cloudflare Pagesデプロイ
 - [x] API（Hono）雛形作成
+- [x] Drizzle関連の依存・設定ファイル・コードを削除
 
 ## 🟢 進行中
 
-- [ ] DB（Drizzle + D1）セットアップ
+- [ ] Kysely本体・MySQLドライバのインストール
+- [ ] DBスキーマ型定義ファイルの作成（TypeScript）
+- [ ] DB接続ユーティリティの作成
+- [ ] サンプルテーブル（tasks, projects等）の型定義
+- [ ] サンプルクエリ（select, insert, update, leftJoin, hasMany等）の実装
+- [ ] マイグレーションツール（dbmate等）の導入・セットアップ
+- [ ] README/ガイドの更新
 
 ## ⏳ 今後の予定
 
