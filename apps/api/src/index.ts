@@ -1,9 +1,11 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
+import tasks from "./routes/tasks";
 
 const app = new Hono();
 
 app.get("/health", (c) => c.text("ok"));
+app.route("/tasks", tasks);
 
 app.onError((err, c) => {
 	console.error("[Hono Error]", err);
