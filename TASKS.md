@@ -5,10 +5,11 @@
 - [x] Gitリポジトリ作成 & 初期Push
 - [x] Vite + React + Tailwind + shadcn/ui + Biome構築
 - [x] Cloudflare Pagesデプロイ
+- [x] API（Hono）雛形作成
 
 ## 🟢 進行中
 
-- [ ] API（Hono）/ DB（Drizzle + D1）セットアップ
+- [ ] DB（Drizzle + D1）セットアップ
 
 ## ⏳ 今後の予定
 
