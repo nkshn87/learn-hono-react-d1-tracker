@@ -8,11 +8,11 @@
 - [x] API（Hono）雛形作成
 - [x] Drizzle関連の依存・設定ファイル・コードを削除
 - [x] DBスキーマ型定義ファイルの作成（TypeScript）
+- [x] Kysely本体・MySQLドライバのインストール
+- [x] DB接続ユーティリティの作成
 
 ## 🟢 進行中
 
-- [ ] Kysely本体・MySQLドライバのインストール
-- [ ] DB接続ユーティリティの作成
 - [ ] サンプルテーブル（tasks, projects等）の型定義
 - [ ] サンプルクエリ（select, insert, update, leftJoin, hasMany等）の実装
 - [ ] マイグレーションツール（dbmate等）の導入・セットアップ
