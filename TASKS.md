@@ -11,10 +11,10 @@
 - [x] Kysely本体・MySQLドライバのインストール
 - [x] DB接続ユーティリティの作成
 - [x] サンプルテーブル（tasks, projects等）の型定義
+- [x] サンプルクエリ（select, insert, update, leftJoin, hasMany等）の実装
 
 ## 🟢 進行中
 
-- [ ] サンプルクエリ（select, insert, update, leftJoin, hasMany等）の実装
 - [ ] マイグレーションツール（dbmate等）の導入・セットアップ
 - [ ] README/ガイドの更新
 
