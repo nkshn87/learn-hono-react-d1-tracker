@@ -7,11 +7,11 @@
 - [x] Cloudflare Pagesデプロイ
 - [x] API（Hono）雛形作成
 - [x] Drizzle関連の依存・設定ファイル・コードを削除
+- [x] DBスキーマ型定義ファイルの作成（TypeScript）
 
 ## 🟢 進行中
 
 - [ ] Kysely本体・MySQLドライバのインストール
-- [ ] DBスキーマ型定義ファイルの作成（TypeScript）
 - [ ] DB接続ユーティリティの作成
 - [ ] サンプルテーブル（tasks, projects等）の型定義
 - [ ] サンプルクエリ（select, insert, update, leftJoin, hasMany等）の実装
