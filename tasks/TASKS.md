@@ -41,4 +41,5 @@
 
 - [ ] TanStack QueryによるAPI通信
 - [ ] UI/UX拡張（shadcn/ui, Toaster, Dialog等）
-- [ ] Cloudflare D1マイグレーション・本番デプロイ 
+- [ ] Cloudflare D1マイグレーション・本番デプロイ
+- [x] TASK-003: Dockerfile.webの無駄レビュー（詳細: ./sub-tasks/TASK-003-review-dockerfile.md） 

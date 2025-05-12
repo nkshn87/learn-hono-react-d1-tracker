@@ -1,0 +1,13 @@
+# ベースイメージ
+FROM node:18-slim
+RUN corepack enable && corepack prepare pnpm@8.15.5 --activate
+WORKDIR /app
+# モノレポ全体をコピー（必要に応じて範囲を絞る）
+COPY . .
+# webアプリのみ依存をインストール
+RUN pnpm install --filter web
+# webディレクトリへ移動
+WORKDIR /app/apps/web
+EXPOSE 5173
+# 開発サーバ起動
+CMD ["pnpm", "dev", "--host", "0.0.0.0"]

@@ -1,0 +1,19 @@
+# API用Dockerfile
+FROM node:18-slim
+
+# corepack で pnpm を有効化
+RUN corepack enable && corepack prepare pnpm@8.15.5 --activate
+
+WORKDIR /app
+
+# モノレポ全体をコピー
+COPY . .
+
+# API用依存をインストール
+RUN pnpm install --filter api
+
+# APIディレクトリへ移動
+WORKDIR /app/apps/api
+
+EXPOSE 4000
+CMD ["pnpm", "dev"] 
