@@ -15,18 +15,9 @@
 - [x] マイグレーションツール（dbmate等）の導入・セットアップ
 - [x] README/ガイドの更新
 - [x] メモリ上でのタスク管理CRUD実装
+- [x] TASK-001: 型共有・Hono RPC導入（詳細: ./sub-tasks/TASK-001-hono-rpc.md）
 
 ## 🟢 進行中
-
-- [ ] TASK-001: 型共有・Hono RPC導入（[詳細](./sub-tasks/TASK-001-hono-rpc.md)）
-    - [x] 型共有用パッケージ（packages/types）新設
-    - [x] 共通型（Task, Project, APIレスポンス型など）の定義
-    - [ ] Hono RPCの依存追加・セットアップ
-    - [ ] サンプルRPCエンドポイントの実装
-    - [ ] 型共有・RPCの動作確認
-    - [ ] ドキュメント/ガイドの更新
-
-## ⏳ 今後の予定
 
 - [ ] TASK-002: DB接続・実装（[詳細](./sub-tasks/TASK-002-db-implementation.md)）
     - [ ] MySQLコンテナの用意・起動（docker-compose.yml作成、永続化・ポート設定）

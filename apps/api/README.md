@@ -41,4 +41,38 @@ apps/api/
 
 ## 注意事項
 - コミット・進捗管理は`TASK_GUIDE.md`/`TASKS.md`に従ってください。
-- マイグレーションは必ずレビュー・テストの上で適用してください。 
+- マイグレーションは必ずレビュー・テストの上で適用してください。
+
+## RPC (Hono RPC)
+
+APIサーバー上で型安全なRPCエンドポイントを提供します。`src/index.ts`に以下の設定を追加済みです。
+
+```ts
+// src/index.ts
+// RPC用にアプリの型をエクスポート
+export type AppType = typeof app;
+
+// サンプルRPCエンドポイント
+app.post(
+  "/rpc/hello",
+  zValidator("json", z.object({ name: z.string() })),
+  (c) => c.json({ greeting: `Hello, ${c.req.valid("json").name}` })
+);
+```
+
+### クライアント利用例
+クライアント側では`hono/client`を使って型安全にRPCを呼び出せます。
+
+```ts
+import { hc } from 'hono/client';
+import type { AppType } from '../src/index'; // AppTypeをインポート
+
+const client = hc<AppType>('http://localhost:4000');
+
+async function hello() {
+  const res = await client.rpc.hello.$post({ json: { name: 'World' } });
+  if (res.ok) {
+    const data = await res.json(); // { greeting: string }
+    console.log(data.greeting);
+  }
+} 

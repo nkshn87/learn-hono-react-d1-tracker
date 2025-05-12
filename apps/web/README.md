@@ -52,3 +52,23 @@ export default tseslint.config({
   },
 })
 ```
+
+## Hono RPC クライアント
+
+サーバーで定義したRPCエンドポイントを型安全に呼び出す手順です。
+
+```ts
+import { hc } from 'hono/client';
+import type { AppType } from '../../apps/api/src/index';
+
+// 開発環境のAPIサーバーURLを指定
+const client = hc<AppType>('http://localhost:4000');
+
+async function hello() {
+  const res = await client.rpc.hello.$post({ json: { name: 'ユーザー名' } });
+  if (res.ok) {
+    const data = await res.json(); // { greeting: string }
+    console.log(data.greeting);
+  }
+}
+```
