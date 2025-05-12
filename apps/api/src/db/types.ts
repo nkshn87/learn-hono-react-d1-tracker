@@ -1,6 +1,6 @@
 export interface Database {
 	tasks: {
-		id: number;
+		id?: number;
 		title: string;
 		description: string | null;
 		status: "todo" | "in_progress" | "done";

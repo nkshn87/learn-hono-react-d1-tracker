@@ -2,32 +2,24 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
 import type { Task } from "types";
+import { db } from "../db/index";
 
 const tasks = new Hono();
 
-// メモリ上のタスク配列
-const taskList: Task[] = [
-	{
-		id: 1,
-		title: "サンプルタスク",
-		description: "これはサンプルタスクです",
-		status: "todo",
-		project_id: null,
-		created_at: new Date(),
-		updated_at: new Date(),
-	},
-];
-let nextId = 2;
-
 // GET /tasks - タスク一覧取得
-tasks.get("/", (c) => {
-	return c.json({ ok: true, tasks: taskList });
+tasks.get("/", async (c) => {
+	const tasksList = await db.selectFrom("tasks").selectAll().execute();
+	return c.json({ ok: true, tasks: tasksList });
 });
 
 // GET /tasks/:id - タスク詳細取得
-tasks.get("/:id", (c) => {
+tasks.get("/:id", async (c) => {
 	const id = Number(c.req.param("id"));
-	const task = taskList.find((t) => t.id === id);
+	const task = await db
+		.selectFrom("tasks")
+		.selectAll()
+		.where("id", "=", id)
+		.executeTakeFirst();
 	if (!task) {
 		return c.json({ ok: false, error: "Task not found" }, 404);
 	}
@@ -38,7 +30,7 @@ tasks.get("/:id", (c) => {
 tasks.post(
 	"/",
 	zValidator(
-		"form",
+		"json",
 		z.object({
 			title: z.string(),
 			description: z.string().nullable().optional(),
@@ -46,20 +38,26 @@ tasks.post(
 			project_id: z.number().nullable().optional(),
 		}),
 	),
-	(c) => {
-		const data = c.req.valid("form");
+	async (c) => {
+		const data = c.req.valid("json");
 		const now = new Date();
-		const task: Task = {
-			id: nextId++,
-			title: data.title,
-			description: data.description ?? null,
-			status: data.status ?? "todo",
-			project_id: data.project_id ?? null,
-			created_at: now,
-			updated_at: now,
-		};
-		taskList.push(task);
-		return c.json({ ok: true, task }, 201);
+		const [insertResult] = await db
+			.insertInto("tasks")
+			.values({
+				title: data.title,
+				description: data.description ?? null,
+				status: data.status ?? "todo",
+				project_id: data.project_id ?? null,
+				created_at: now,
+				updated_at: now,
+			})
+			.execute();
+		const inserted = await db
+			.selectFrom("tasks")
+			.selectAll()
+			.where("id", "=", Number(insertResult.insertId))
+			.executeTakeFirst();
+		return c.json({ ok: true, task: inserted }, 201);
 	},
 );
 
@@ -67,7 +65,7 @@ tasks.post(
 tasks.put(
 	"/:id",
 	zValidator(
-		"form",
+		"json",
 		z.object({
 			title: z.string().optional(),
 			description: z.string().nullable().optional(),
@@ -75,30 +73,52 @@ tasks.put(
 			project_id: z.number().nullable().optional(),
 		}),
 	),
-	(c) => {
+	async (c) => {
 		const id = Number(c.req.param("id"));
-		const data = c.req.valid("form");
-		const task = taskList.find((t) => t.id === id);
-		if (!task) {
+		const data = c.req.valid("json");
+		// 存在確認
+		const existing = await db
+			.selectFrom("tasks")
+			.selectAll()
+			.where("id", "=", id)
+			.executeTakeFirst();
+		if (!existing) {
 			return c.json({ ok: false, error: "Task not found" }, 404);
 		}
-		if (data.title !== undefined) task.title = data.title;
-		if (data.description !== undefined) task.description = data.description;
-		if (data.status !== undefined) task.status = data.status;
-		if (data.project_id !== undefined) task.project_id = data.project_id;
-		task.updated_at = new Date();
-		return c.json({ ok: true, task });
+		const updateData: Partial<Task> = {};
+		if (data.title !== undefined) updateData.title = data.title;
+		if (data.description !== undefined)
+			updateData.description = data.description;
+		if (data.status !== undefined) updateData.status = data.status;
+		if (data.project_id !== undefined) updateData.project_id = data.project_id;
+		updateData.updated_at = new Date();
+		await db
+			.updateTable("tasks")
+			.set(updateData)
+			.where("id", "=", id)
+			.execute();
+		const updated = await db
+			.selectFrom("tasks")
+			.selectAll()
+			.where("id", "=", id)
+			.executeTakeFirst();
+		return c.json({ ok: true, task: updated });
 	},
 );
 
 // DELETE /tasks/:id - タスク削除
-tasks.delete("/:id", (c) => {
+tasks.delete("/:id", async (c) => {
 	const id = Number(c.req.param("id"));
-	const idx = taskList.findIndex((t) => t.id === id);
-	if (idx === -1) {
+	// 存在確認
+	const existing = await db
+		.selectFrom("tasks")
+		.selectAll()
+		.where("id", "=", id)
+		.executeTakeFirst();
+	if (!existing) {
 		return c.json({ ok: false, error: "Task not found" }, 404);
 	}
-	taskList.splice(idx, 1);
+	await db.deleteFrom("tasks").where("id", "=", id).execute();
 	return c.json({ ok: true, id });
 });
 

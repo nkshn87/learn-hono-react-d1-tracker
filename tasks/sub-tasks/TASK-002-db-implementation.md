@@ -9,7 +9,7 @@
 - [x] Kysely＋MySQLの接続テスト（Dockerコンテナに接続）
 - [x] マイグレーション実行（dbmate up等）
 - [x] テーブル作成確認
-- [ ] タスク管理のDB実装（GET/POST/PUT/DELETE順に対応）
+- [x] タスク管理のDB実装（GET/POST/PUT/DELETE順に対応）
 - [ ] エラーハンドリング・テスト
 - [ ] ドキュメント/ガイドの更新
 
