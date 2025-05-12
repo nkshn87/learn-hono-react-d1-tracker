@@ -3,11 +3,22 @@ import { serve } from "@hono/node-server";
 import tasks from "./routes/tasks";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
+import { db } from "./db/index";
+import { createPool as createPromisePool } from "mysql2/promise";
 
 const app = new Hono();
 
 app.get("/health", (c) => c.text("ok"));
 app.route("/tasks", tasks);
+
+// テスト用プール
+const testPool = createPromisePool({
+	host: process.env.DB_HOST || "localhost",
+	port: Number(process.env.DB_PORT) || 3306,
+	user: process.env.DB_USER || "root",
+	password: process.env.DB_PASSWORD || "",
+	database: process.env.DB_NAME || "task_tracker",
+});
 
 // サンプルRPCエンドポイント
 app.post(
@@ -18,6 +29,18 @@ app.post(
 		return c.json({ greeting: `Hello, ${name}` });
 	},
 );
+
+// DB接続テスト用エンドポイント
+app.get("/health/db", async (c) => {
+	try {
+		// mysql2/promise プールでクエリ実行
+		await testPool.query("SELECT 1");
+		return c.text("DB connection OK");
+	} catch (err) {
+		console.error("DB connection error:", err);
+		return c.text("DB connection error", 500);
+	}
+});
 
 // RPC 用にアプリの型をエクスポート
 export type AppType = typeof app;

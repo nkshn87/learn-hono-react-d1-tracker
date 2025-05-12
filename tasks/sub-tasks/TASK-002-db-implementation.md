@@ -3,9 +3,9 @@
 このファイルは`TASKS.md`の「TASK-002: DB接続・実装」の詳細タスク・進捗を記録します。
 
 ## サブタスク
-- [ ] MySQLコンテナの用意・起動（docker-compose.yml作成、永続化・ポート設定）
-- [ ] .envのDB接続情報をDocker用に調整
-- [ ] MySQLコンテナの起動・初期化確認
+- [x] MySQLコンテナの用意・起動（docker-compose.yml作成、永続化・ポート設定）
+- [x] .envのDB接続情報をDocker用に調整
+- [x] MySQLコンテナの起動・初期化確認
 - [ ] Kysely＋MySQLの接続テスト（Dockerコンテナに接続）
 - [ ] マイグレーション実行（dbmate up等）
 - [ ] テーブル作成確認
