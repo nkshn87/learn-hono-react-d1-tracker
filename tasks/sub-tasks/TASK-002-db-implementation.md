@@ -6,7 +6,7 @@
 - [x] MySQLコンテナの用意・起動（docker-compose.yml作成、永続化・ポート設定）
 - [x] .envのDB接続情報をDocker用に調整
 - [x] MySQLコンテナの起動・初期化確認
-- [ ] Kysely＋MySQLの接続テスト（Dockerコンテナに接続）
+- [x] Kysely＋MySQLの接続テスト（Dockerコンテナに接続）
 - [ ] マイグレーション実行（dbmate up等）
 - [ ] テーブル作成確認
 - [ ] タスク管理のDB実装（GET/POST/PUT/DELETE順に対応）
