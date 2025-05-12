@@ -12,6 +12,11 @@ dependencies:
     specifier: ^19.1.0
     version: 19.1.0(react@19.1.0)
 
+optionalDependencies:
+  '@rollup/rollup-linux-arm64-gnu':
+    specifier: 4.6.1
+    version: 4.6.1
+
 devDependencies:
   '@hono/node-server':
     specifier: ^1.14.1
@@ -560,6 +565,14 @@ packages:
     os: [linux]
     requiresBuild: true
     dev: true
+    optional: true
+
+  /@rollup/rollup-linux-arm64-gnu@4.6.1:
+    resolution: {integrity: sha512-9lhc4UZstsegbNLhH0Zu6TqvDfmhGzuCWtcTFXY10VjLLUe4Mr0Ye2L3rrtHaDd/J5+tFMEuo5LTCSCMXWfUKw==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
     optional: true
 
   /@rollup/rollup-linux-arm64-musl@4.40.2:
