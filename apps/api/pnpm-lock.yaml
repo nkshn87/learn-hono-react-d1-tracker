@@ -8,6 +8,9 @@ dependencies:
   '@hono/zod-validator':
     specifier: ^0.5.0
     version: 0.5.0(hono@4.7.9)(zod@3.24.4)
+  dotenv:
+    specifier: ^16.5.0
+    version: 16.5.0
   hono:
     specifier: ^4.7.9
     version: 4.7.9
@@ -283,6 +286,11 @@ packages:
   /denque@2.1.0:
     resolution: {integrity: sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw==}
     engines: {node: '>=0.10'}
+    dev: false
+
+  /dotenv@16.5.0:
+    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
+    engines: {node: '>=12'}
     dev: false
 
   /esbuild@0.25.4:
