@@ -76,3 +76,16 @@ async function hello() {
     console.log(data.greeting);
   }
 } 
+```
+
+## エンドポイント
+
+| メソッド | パス               | 説明                         | レスポンス例                      |
+|---------|------------------|-----------------------------|--------------------------------|
+| GET     | /health          | サーバーの生存確認           | ok                             |
+| GET     | /health/db       | DB 接続確認                  | DB connection OK               |
+| GET     | /tasks           | タスク一覧取得               | { ok: true, tasks: Task[] }     |
+| GET     | /tasks/:id       | タスク詳細取得               | { ok: true, task: Task }        |
+| POST    | /tasks           | タスク新規作成 （JSON）       | { ok: true, task: Task }        |
+| PUT     | /tasks/:id       | タスク更新（JSON）           | { ok: true, task: Task }        |
+| DELETE  | /tasks/:id       | タスク削除                   | { ok: true, id: number }        |
