@@ -1,6 +1,6 @@
 # ベースイメージ
 FROM node:18-slim
-RUN corepack enable && corepack prepare pnpm@8.15.5 --activate
+RUN corepack enable && corepack prepare pnpm@8.7.1 --activate
 WORKDIR /app
 # モノレポ全体をコピー（必要に応じて範囲を絞る）
 COPY . .
