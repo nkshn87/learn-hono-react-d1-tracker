@@ -5,9 +5,9 @@
 ## サブタスク
 - [x] API テスト環境セットアップ (Vitest)
 - [x] API ヘルスチェック・CRUD テスト実装
-- [ ] Web テスト環境セットアップ (Vitest + React Testing Library)
-- [ ] Web コンポーネントテスト実装
-- [ ] ドキュメント/ガイド更新
+- [x] Web テスト環境セットアップ (Vitest + React Testing Library)
+- [x] Web コンポーネントテスト実装
+- [x] ドキュメント/ガイド更新
 
 ## メモ・進捗
 - これまでのエンドポイント実装が完了しているため、テストを実装可能 
