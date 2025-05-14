@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# ワークツリー・ステージ確認
+git diff --quiet || { echo 'ワークツリーに未ステージの変更があります'; exit 1; }
+git diff --cached --name-only | grep -q . || { echo 'ステージに何もありません'; exit 1; } 
