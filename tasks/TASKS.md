@@ -17,11 +17,14 @@
 - [x] メモリ上でのタスク管理CRUD実装
 - [x] TASK-001: 型共有・Hono RPC導入（詳細: ./sub-tasks/TASK-001-hono-rpc.md）
 - [x] TASK-002: DB接続・実装（詳細: ./sub-tasks/TASK-002-db-implementation.md）
+- [x] TASK-004: テスト自動化（詳細: ./sub-tasks/TASK-004-testing.md）
 
 ## 🟢 進行中
 
 - [x] TanStack QueryによるAPI通信
-- [ ] UI/UX拡張（shadcn/ui, Toaster, Dialog等）
+- [ ] TASK-005: UI/UX拡張（詳細: ./sub-tasks/TASK-005-ui-ux-extension.md）
 - [ ] Cloudflare D1マイグレーション・本番デプロイ
 - [x] TASK-003: Dockerfile.webの無駄レビュー（詳細: ./sub-tasks/TASK-003-review-dockerfile.md）
-- [ ] TASK-004: テスト自動化（詳細: ./sub-tasks/TASK-004-testing.md） 
+- [ ] TASK-004: テスト自動化（詳細: ./sub-tasks/TASK-004-testing.md）
+
+## ⏳ 今後の予定 
