@@ -27,4 +27,4 @@
 - [x] TASK-003: Dockerfile.webの無駄レビュー（詳細: ./sub-tasks/TASK-003-review-dockerfile.md）
 - [ ] TASK-004: テスト自動化（詳細: ./sub-tasks/TASK-004-testing.md）
 
-## ⏳ 今後の予定 
+## ⏳ 今後の予定
