@@ -72,3 +72,11 @@ async function hello() {
   }
 }
 ```
+
+## テスト
+
+以下コマンドでユニットテストを実行できます。
+
+```bash
+pnpm test:web
+```
