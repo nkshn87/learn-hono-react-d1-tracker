@@ -1,0 +1,29 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Pre-commit Diff チェック
+
+- 変更をコミットする前に、必ず以下のコマンドを実行してください:
+  - git diff --stat  # ワークツリーの変更を確認
+  - git diff --cached --name-only  # ステージされた変更を確認
+- もし未ステージの変更や新規ファイルがあれば、コミットを中断し、必要なファイルをステージしてください。
+
+このルールをコミットフックとして自動化したい場合、以下の手順で Husky を導入してください:
+
+```bash
+pnpm add -D husky lint-staged
+pnpm dlx husky-init     # .husky/pre-commit が作成されます
+pnpm prepare            # package.json の prepare スクリプトを実行
+```
+
+.husky/pre-commit の内容:
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# ワークツリー・ステージ確認
+git diff --quiet || { echo 'ワークツリーに未ステージの変更があります'; exit 1; }
+git diff --cached --name-only | grep -q . || { echo 'ステージに何もありません'; exit 1; }
+```
