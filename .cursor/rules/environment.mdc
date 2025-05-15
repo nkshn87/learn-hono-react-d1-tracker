@@ -1,0 +1,42 @@
+---
+description: 環境構築をしたい
+globs: 
+alwaysApply: false
+---
+# Cursor Agent 環境構築ルール（pnpm monorepo）
+- name: 環境構築
+  when: コマンド `setup-environment`
+  do:
+    # モノレポ初期化
+    - run: pnpm init -w
+    - run: pnpm add -w -D typescript eslint prettier jest ts-jest @types/jest @types/node ts-node
+    - run: pnpm add hono tsyringe reflect-metadata kysely @kysely/sqlite3 sqlite3 jsonwebtoken bcrypt dotenv
+    # パッケージレイアウト
+    - create dir: packages/backend/src
+    - create dir: packages/backend/tests
+    - create file: packages/backend/tsconfig.json
+      content: |
+        {
+          "extends": "../../tsconfig.base.json",
+          "compilerOptions": {"outDir": "dist"},
+          "include": ["src"]
+        }
+    - create file: tsconfig.base.json
+      content: |
+        {
+          "compilerOptions": {
+            "composite": true,
+            "target": "ES2022",
+            "module": "commonjs",
+            "strict": true,
+            "esModuleInterop": true,
+            "emitDecoratorMetadata": true,
+            "experimentalDecorators": true
+          },
+          "references": [{"path": "packages/backend"}]
+        }
+    # Jest 設定
+    - create file: packages/backend/jest.config.js
+      content: |
+        module.exports = { preset: 'ts-jest', testEnvironment: 'node', roots: ['<rootDir>/tests'] };
+    - log: "[Agent] Monorepo 環境構築完了: packages/backend が準備されました"

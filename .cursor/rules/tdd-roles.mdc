@@ -1,0 +1,66 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Cursor Agent TDDルール
+- name: 初期ルール読み込み
+  when: コマンド `load-rules rules.mdc`
+  do:
+    - load: rules.mdc
+- name: テスト生成
+  when: `generate-test <UseCase>`
+  do:
+    - create file: tests/<UseCase>.spec.ts
+    - template: |
+        import { <UseCase> } from '../../src/application/usecases/<UseCase>'
+        describe('<UseCase>', () => {
+          it('正常系: <UseCase> が期待どおり動作すること', async () => {
+            // Arrange: モック依存注入、入力データ
+            // Act: 実行
+            // Assert: 出力と副作用検証
+          });
+        });
+    - log: "[Agent] テストファイル tests/<UseCase>.spec.ts を生成しました"
+
+- name: テスト実行
+  when: ファイル変更検知
+  do:
+    - run: npm test -- --find-only
+    - capture: stdout
+    - parse: 
+        fail: /FAIL/ → 次のルール "implement"
+        pass: /All tests passed/ → 次のルール "refactor"
+
+- name: 実装生成
+  when: テスト失敗検知
+  do:
+    - generate code: |
+        // Minimal implementation for <UseCase>
+        // ファイル: src/application/usecases/<UseCase>.ts
+        // 必要なクラス、メソッド、依存注入スタブを作成
+    - log: "[Agent] <UseCase> の実装コードを生成しました"
+    - run: npm test -- --find-only
+
+- name: リファクタリング
+  when: テスト全通
+  do:
+    - review code: |
+        // 提案：メソッド名の統一、重複コードの抽出、コメントと型定義の充実化
+    - log: "[Agent] リファクタリング提案をコードコメントとして追記しました"
+    - commit: message="<UseCase> ユースケース実装とリファクタ完了"
+
+- name: エラー時ロールバック
+  when: `fail to implement` またはテストが継続的に失敗
+  do:
+    - revert: last commit
+    - log: "[Agent] 実装に問題があったためロールバックしました"
+
+# Workflow
+# 1. load-rules
+# 2. generate-test CreateTaskUseCase
+# 3. run-tests → Red
+# 4. implement CreateTaskUseCase
+# 5. run-tests → Green
+# 6. refactor CreateTaskUseCase
+# 7. 次の generate-test ListTasksUseCase
